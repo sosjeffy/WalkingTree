@@ -159,7 +159,7 @@ func loadLeaf(){
     do {
         let result = try context.fetch(request)
         for data in result as! [NSManagedObject] {
-            addLeafToView(leaf : data)
+            //addLeafToView(leaf : data)
         }
         
     } catch {
