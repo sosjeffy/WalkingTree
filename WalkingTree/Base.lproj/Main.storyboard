@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Script-17" translatesAutoresizingMaskIntoConstraints="NO" id="wgx-Lo-p4R">
-                                <rect key="frame" x="-136" y="-128" width="659" height="1265"/>
+                                <rect key="frame" x="-122" y="-53" width="659" height="1265"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Ig-55-x49">
@@ -24,8 +24,8 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dead-tree" translatesAutoresizingMaskIntoConstraints="NO" id="prp-5x-8cX">
-                                <rect key="frame" x="0.0" y="44" width="414" height="903"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dead-tree" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="prp-5x-8cX">
+                                <rect key="frame" x="36" y="209" width="342" height="626"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -40,6 +40,6 @@
     </scenes>
     <resources>
         <image name="Script-17" width="1529" height="2755"/>
-        <image name="dead-tree" width="512" height="512"/>
+        <image name="dead-tree" width="512" height="672"/>
     </resources>
 </document>
