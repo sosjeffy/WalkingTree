@@ -7,13 +7,15 @@
 
 import UIKit
 import CoreMotion
+import CoreData
 
 func saveUserInfo(leavesAdded: Int, leavesSaved: Int, stepCount: Int) {
-    let appDelegate = UIApplication.shared.delegate as? AppDelegate
-    let context = appDelegate?.persistentContainer.viewContext
+    print("SAVE USER INFO RUNNING")
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let context = appDelegate.persistentContainer.viewContext
     let entity = NSEntityDescription.entity(forEntityName: "UserInfo", in: context) 
     if entity != nil{
-        let newUserInfo = CoreMotion.NSManagedObject(entity: entity!, insertInto: context)
+        let newUserInfo = CoreData.NSManagedObject(entity: entity!, insertInto: context)
         newUserInfo.setValue(leavesAdded, forKey: "leavesAdded")
         newUserInfo.setValue(leavesSaved, forKey: "leavesSaved")
         newUserInfo.setValue(stepCount, forKey: "stepCount")
@@ -31,11 +33,13 @@ func saveUserInfo(leavesAdded: Int, leavesSaved: Int, stepCount: Int) {
 }
         
 func saveLeaf(leaf: Leaf){
+    print("SAVE LEAF RUNNING")
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let context = appDelegate.persistentContainer.viewContext
     let entity = NSEntityDescription.entity(forEntityName: "LeavesLocations", in: context)
     if entity != nil{
-        let leafLocation = NSEntityDescription.insertNewObject(forEntityName: "LeavesLocations", insertInto: context)
+        
+        let leafLocation = CoreData.NSManagedObject(entity: entity!, insertInto: context)
         leafLocation.setValue(leaf, forKey: "leavesLocations")
         do {          
             try context.save()       
@@ -47,6 +51,7 @@ func saveLeaf(leaf: Leaf){
         print("Entity was nil...")
     }
 }
+
 class ViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -54,10 +59,39 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         let motionManager = CMMotionManager()
         let pedometer = CMPedometer()
-        
+        var stepCount = 0;
+        var leavesAdded = 0;
+        var leavesSaved = 0;
+        var leavesLocation = [];
+        Bool dataExisted = false;
+        //Now check CoreData and bring in all values as needed. If data existed, change dataExisted=true
+
+        // Do work on data as applicable.
+
+
         if CMPedometer.isStepCountingAvailable(){
             // Do step counting
 
+
+
+
+
+            
+
+
+
+
+
+            //Step Counting is done. Make sure to add +1 to leavesSaved every time steps taken is mod 10 = 0. 
+            
+
+            if dataExisted{
+                // Update data entries
+            }
+            else{
+                // Add data
+                saveUserInfo(leavesAdded:leavesAdded, leavesSaved:leavesSaved, stepCount:stepCount)
+            }
         }
         else{
             // THIS PHONE DOESN'T HAVE PEDOMETER
@@ -96,13 +130,15 @@ class Leaf {
 }
 
 func addLeaf(){ 
-    var leaf  = Leaf()
+    let leaf  = Leaf()
     let image = UIImage(named: leaf.leafname)
     let imageView = UIImageView(image: image!)
     imageView.frame = CGRect(x: leaf.x, y: leaf.y, width: leaf.size, height: leaf.size)
     imageView.transform = imageView.transform.rotated(by: .pi * CGFloat(leaf.angle/180))
-    View.addSubview(imageView)
+    let window = UIApplication.shared.keyWindow!
+    window.addSubview(imageView)
     // add to database
+    saveLeaf(leaf: leaf) // Not sure if correct 
 
 }
 
