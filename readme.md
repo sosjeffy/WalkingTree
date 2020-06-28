@@ -11,6 +11,8 @@ There is also some code to assist with the implementation of storing and reading
 
 *It is important to note that while programmatically each leaf is stored, we have not implemented checking this storage at app start-up in order to load up previously added leaves. In other words, leaves are stored and saved, but not reloaded back into the app view.
 
+# Video
+https://www.youtube.com/watch?v=0GKJDFMWZk0
 
 # Credits
 Project created with love by Jefferson Touth and Shihan Tang.
