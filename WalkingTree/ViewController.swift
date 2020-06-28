@@ -73,15 +73,6 @@ class ViewController: UIViewController {
             // Do step counting
 
 
-
-
-
-            
-
-
-
-
-
             //Step Counting is done. Make sure to add +1 to leavesSaved every time steps taken is mod 10 = 0. 
             
 
@@ -90,7 +81,7 @@ class ViewController: UIViewController {
             }
             else{
                 // Add data
-                saveUserInfo(leavesAdded:leavesAdded, leavesSaved:leavesSaved, stepCount:stepCount)
+                //saveUserInfo(leavesAdded:leavesAdded, leavesSaved:leavesSaved, stepCount:stepCount)
             }
         }
         else{
@@ -101,6 +92,7 @@ class ViewController: UIViewController {
     
     @IBAction func addLeafButton(_ sender: Any) {
     }
+}
 }
 
 // Shihan's Terrain, No Tresspassing!
@@ -140,7 +132,7 @@ func addLeaf(){
 
 }
 
-//every time the main page loads elements, all leafs should be loaded as well
+    addLeafToView(leaf : leaf)//every time the main page loads elements, all leafs should be loaded as well
 func loadLeaf(){
     // read current leaves from database
 
@@ -149,8 +141,26 @@ func loadLeaf(){
     let imageView = UIImageView(image: image!)
     imageView.frame = CGRect(x: leaf.x, y: leaf.y, width: leaf.size, height: leaf.size)
     imageView.transform = imageView.transform.rotated(by: .pi * CGFloat(leaf.angle/180))
-    let window = UIApplication.shared.keyWindow!
+        // read current leaves from database
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let context = appDelegate.persistentContainer.viewContext
+    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "LeavesLocations")
+    //request.predicate = NSPredicate(format: "age = %@", "12")
+    request.returnsObjectsAsFaults = false
+    do {
+        let result = try context.fetch(request)
+        for data in result as! [NSManagedObject] {
+            addLeafToView(leaf : data)
+        }
+        
+    } catch {
+        print("Failed")
+    }    let window = UIApplication.shared.keyWindow!
     window.addSubview(imageView)
+    // add to database
+    //saveLeaf(leaf: leaf) // Not sure if correct 
+
+}   window.addSubview(imageView)
     // add to database
     //saveLeaf(leaf: leaf) // Not sure if correct 
 
