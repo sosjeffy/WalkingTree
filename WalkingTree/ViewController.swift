@@ -73,15 +73,6 @@ class ViewController: UIViewController {
             // Do step counting
 
 
-
-
-
-            
-
-
-
-
-
             //Step Counting is done. Make sure to add +1 to leavesSaved every time steps taken is mod 10 = 0. 
             
 
@@ -90,7 +81,7 @@ class ViewController: UIViewController {
             }
             else{
                 // Add data
-                saveUserInfo(leavesAdded:leavesAdded, leavesSaved:leavesSaved, stepCount:stepCount)
+                //saveUserInfo(leavesAdded:leavesAdded, leavesSaved:leavesSaved, stepCount:stepCount)
             }
         }
         else{
@@ -98,6 +89,11 @@ class ViewController: UIViewController {
             // Idk what to do here...this means app would fail to get data
         }
     }
+    
+    @IBAction func addLeafButton(_ sender: Any) {
+        addLeaf()
+    }
+}
 }
 
 // Shihan's Terrain, No Tresspassing!
@@ -129,12 +125,38 @@ class Leaf {
     }
 }
 
-func addLeafToView(leaf : Leaf){
+func addLeaf(){ 
+    let leaf  = Leaf()
+
+    // add to database
+    saveLeaf(leaf: leaf) // Not sure if correct 
+
+}
+
+    addLeafToView(leaf : leaf)//every time the main page loads elements, all leafs should be loaded as well
+func loadLeaf(){
+    // read current leaves from database
+
+    let leaf  = Leaf()
     let image = UIImage(named: leaf.leafname)
     let imageView = UIImageView(image: image!)
     imageView.frame = CGRect(x: leaf.x, y: leaf.y, width: leaf.size, height: leaf.size)
     imageView.transform = imageView.transform.rotated(by: .pi * CGFloat(leaf.angle/180))
-    let window = UIApplication.shared.keyWindow!
+        // read current leaves from database
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let context = appDelegate.persistentContainer.viewContext
+    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "LeavesLocations")
+    //request.predicate = NSPredicate(format: "age = %@", "12")
+    request.returnsObjectsAsFaults = false
+    do {
+        let result = try context.fetch(request)
+        for data in result as! [NSManagedObject] {
+            addLeafToView(leaf : data)
+        }
+        
+    } catch {
+        print("Failed")
+    }    let window = UIApplication.shared.keyWindow!
     window.addSubview(imageView)
 }
 
@@ -142,12 +164,16 @@ func addLeaf(){
     let leaf  = Leaf()
     addLeafToView(leaf: leaf)
     // add to database
-    saveLeaf(leaf: leaf) // Not sure if correct 
+    //saveLeaf(leaf: leaf) // Not sure if correct 
+
+}   window.addSubview(imageView)
+    // add to database
+    //saveLeaf(leaf: leaf) // Not sure if correct 
 
 }
 
 //every time the main page loads elements, all leafs should be loaded as well
-func loadLeaf(){
+func loadLeaf2(){
     // read current leaves from database
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let context = appDelegate.persistentContainer.viewContext
