@@ -59,12 +59,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         let motionManager = CMMotionManager()
         let pedometer = CMPedometer()
-        var stepCount = 0;
-        var leavesAdded = 0;
-        var leavesSaved = 0;
-        var leavesLocation = [];
-        Bool dataExisted = false;
-        //Now check CoreData and bring in all values as needed. If data existed, change dataExisted=true
+        var stepCount = 0
+        var leavesAdded = 0
+        var leavesSaved = 0
+        var leavesLocation = [Leaf]()
+        var dataExisted = false
+        //Now check CoreData and bring in all values as needed. If data existed, change dataExisted=true via dataExist.toggle()
 
         // Do work on data as applicable.
 
