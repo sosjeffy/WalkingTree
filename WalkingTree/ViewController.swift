@@ -7,39 +7,46 @@
 
 import UIKit
 import CoreMotion
-import AppDelegate.swift
 
-func save(name: String) {
-  
-  guard let appDelegate =
-    UIApplication.shared.delegate as? AppDelegate else {
-    return
-  }
-  
-  // 1
-  let managedContext =
-    appDelegate.persistentContainer.viewContext
-  
-  // 2
-  let entity =
-    NSEntityDescription.entity(forEntityName: "Person",
-                               in: managedContext)!
-  
-  let person = NSManagedObject(entity: entity,
-                               insertInto: managedContext)
-  
-  // 3
-  person.setValue(name, forKeyPath: "name")
-  
-  // 4
-  do {
-    try managedContext.save()
-    people.append(person)
-  } catch let error as NSError {
-    print("Could not save. \(error), \(error.userInfo)")
-  }
+func saveUserInfo(leavesAdded: Int, leavesSaved: Int, stepCount: Int) {
+    let appDelegate = UIApplication.shared.delegate as? AppDelegate
+    let context = appDelegate?.persistentContainer.viewContext
+    let entity = NSEntityDescription.entity(forEntityName: "UserInfo", in: context) 
+    if entity != nil{
+        let newUserInfo = CoreMotion.NSManagedObject(entity: entity!, insertInto: context)
+        newUserInfo.setValue(leavesAdded, forKey: "leavesAdded")
+        newUserInfo.setValue(leavesSaved, forKey: "leavesSaved")
+        newUserInfo.setValue(stepCount, forKey: "stepCount")
+
+        // Now time to save the data
+         do {          
+            try context.save()       
+        } catch {       
+            print("Failed saving...")
+        }
+    }
+    else{
+        print("Entity was nil...")
+    }
 }
-
+        
+func saveLeaf(leaf: Leaf){
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let context = appDelegate.persistentContainer.viewContext
+    let entity = NSEntityDescription.entity(forEntityName: "LeavesLocations", in: context)
+    if entity != nil{
+        let leafLocation = NSEntityDescription.insertNewObject(forEntityName: "LeavesLocations", insertInto: context)
+        leafLocation.setValue(leaf, forKey: "leavesLocations")
+        do {          
+            try context.save()       
+        } catch {       
+            print("Failed saving...")
+        }
+    }
+    else{
+        print("Entity was nil...")
+    }
+}
 class ViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -89,7 +96,6 @@ class Leaf {
 }
 
 func addLeaf(){ 
-    
     var leaf  = Leaf()
     let image = UIImage(named: leaf.leafname)
     let imageView = UIImageView(image: image!)
@@ -104,9 +110,4 @@ func addLeaf(){
 func loadLeaf(){
     // read current leaves from database
 
-
 }
-//Terrain Ends
-
-
-
