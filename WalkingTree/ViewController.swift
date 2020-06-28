@@ -98,6 +98,9 @@ class ViewController: UIViewController {
             // Idk what to do here...this means app would fail to get data
         }
     }
+    
+    @IBAction func addLeafButton(_ sender: Any) {
+    }
 }
 
 // Shihan's Terrain, No Tresspassing!
@@ -131,12 +134,7 @@ class Leaf {
 
 func addLeaf(){ 
     let leaf  = Leaf()
-    let image = UIImage(named: leaf.leafname)
-    let imageView = UIImageView(image: image!)
-    imageView.frame = CGRect(x: leaf.x, y: leaf.y, width: leaf.size, height: leaf.size)
-    imageView.transform = imageView.transform.rotated(by: .pi * CGFloat(leaf.angle/180))
-    let window = UIApplication.shared.keyWindow!
-    window.addSubview(imageView)
+
     // add to database
     saveLeaf(leaf: leaf) // Not sure if correct 
 
@@ -144,6 +142,22 @@ func addLeaf(){
 
 //every time the main page loads elements, all leafs should be loaded as well
 func loadLeaf(){
+    // read current leaves from database
+
+    let leaf  = Leaf()
+    let image = UIImage(named: leaf.leafname)
+    let imageView = UIImageView(image: image!)
+    imageView.frame = CGRect(x: leaf.x, y: leaf.y, width: leaf.size, height: leaf.size)
+    imageView.transform = imageView.transform.rotated(by: .pi * CGFloat(leaf.angle/180))
+    let window = UIApplication.shared.keyWindow!
+    window.addSubview(imageView)
+    // add to database
+    //saveLeaf(leaf: leaf) // Not sure if correct 
+
+}
+
+//every time the main page loads elements, all leafs should be loaded as well
+func loadLeaf2(){
     // read current leaves from database
 
 }
