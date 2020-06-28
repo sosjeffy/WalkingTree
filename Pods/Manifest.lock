@@ -1,0 +1,20 @@
+PODS:
+  - NewYorkAlert (1.0.0)
+  - XXXRoundMenuButton (1.0.3)
+
+DEPENDENCIES:
+  - NewYorkAlert
+  - XXXRoundMenuButton
+
+SPEC REPOS:
+  trunk:
+    - NewYorkAlert
+    - XXXRoundMenuButton
+
+SPEC CHECKSUMS:
+  NewYorkAlert: cf254ead7dabf55f3bdb728e56673a855034722f
+  XXXRoundMenuButton: 8a7b47d34e0c2f470c2bea72ad4d3db919750f78
+
+PODFILE CHECKSUM: 39a6672dd4e070d7785a2f0eb48acdbeb9f88003
+
+COCOAPODS: 1.9.3
