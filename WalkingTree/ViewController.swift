@@ -91,6 +91,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func addLeafButton(_ sender: Any) {
+        addLeaf()
     }
 }
 }
