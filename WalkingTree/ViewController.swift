@@ -129,14 +129,18 @@ class Leaf {
     }
 }
 
-func addLeaf(){ 
-    let leaf  = Leaf()
+func addLeafToView(leaf : Leaf){
     let image = UIImage(named: leaf.leafname)
     let imageView = UIImageView(image: image!)
     imageView.frame = CGRect(x: leaf.x, y: leaf.y, width: leaf.size, height: leaf.size)
     imageView.transform = imageView.transform.rotated(by: .pi * CGFloat(leaf.angle/180))
     let window = UIApplication.shared.keyWindow!
     window.addSubview(imageView)
+}
+
+func addLeaf(){ 
+    let leaf  = Leaf()
+    addLeafToView(leaf: leaf)
     // add to database
     saveLeaf(leaf: leaf) // Not sure if correct 
 
@@ -145,5 +149,18 @@ func addLeaf(){
 //every time the main page loads elements, all leafs should be loaded as well
 func loadLeaf(){
     // read current leaves from database
-
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let context = appDelegate.persistentContainer.viewContext
+    let request = NSFetchRequest<NSFetchRequestResult>(entityName: "LeavesLocations")
+    //request.predicate = NSPredicate(format: "age = %@", "12")
+    request.returnsObjectsAsFaults = false
+    do {
+        let result = try context.fetch(request)
+        for data in result as! [NSManagedObject] {
+            addLeafToView(leaf : data)
+        }
+        
+    } catch {
+        print("Failed")
+    }
 }
