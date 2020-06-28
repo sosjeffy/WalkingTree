@@ -40,7 +40,11 @@ func saveLeaf(leaf: Leaf){
     if entity != nil{
         
         let leafLocation = CoreData.NSManagedObject(entity: entity!, insertInto: context)
-        leafLocation.setValue(leaf, forKey: "leavesLocations")
+        leafLocation.setValue(leaf.x, forKey: "x")
+        leafLocation.setValue(leaf.y, forKey: "y")
+        leafLocation.setValue(leaf.size, forKey: "size")
+        leafLocation.setValue(leaf.angle, forKey: "angle")
+        leafLocation.setValue(leaf.leafname, forKey: "leafname")
         do {          
             try context.save()       
         } catch {       
